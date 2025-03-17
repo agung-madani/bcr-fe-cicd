@@ -14,26 +14,13 @@ pipeline {
     }
     
     stages {
-        stage('Checkout') {
+        
+        stage('Install Dependencies') {
             steps {
-                echo "Checking out code from GitHub using SSH..."
-                sshagent(['github-ssh-key']) {
-                    // The first time you connect to a new host, you might need to approve the host key
-                    sh '''
-                        mkdir -p ~/.ssh
-                        ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-                        git clone --branch ${BRANCH} ${GITHUB_REPO} .
-                    '''
-                }
+                echo "Installing dependencies..."
+                sh 'npm install'
             }
         }
-        
-    //     stage('Install Dependencies') {
-    //         steps {
-    //             echo "Installing dependencies..."
-    //             sh 'npm install'
-    //         }
-    //     }
         
     //     stage('Lint') {
     //         steps {
