@@ -9,8 +9,6 @@ pipeline {
     
     environment {
         VERCEL_TOKEN = credentials('vercel-token')
-        GITHUB_REPO = "git@github.com:agung-madani/bcr-fe-cicd.git"
-        BRANCH = "main"
     }
     
     stages {
