@@ -19,27 +19,20 @@ pipeline {
                 sh 'npm install'
             }
         }
+
+        stage('Test') {
+            steps {
+                echo "Running tests..."
+                sh 'npm run test || echo "No tests found, continuing..."'
+            }
+        }
         
-    //     stage('Lint') {
-    //         steps {
-    //             echo "Running linter..."
-    //             sh 'npm run lint || true'  // Continue even if linting fails
-    //         }
-    //     }
-        
-    //     stage('Test') {
-    //         steps {
-    //             echo "Running tests..."
-    //             sh 'npm test || echo "No tests found, continuing..."'
-    //         }
-    //     }
-        
-    //     stage('Build') {
-    //         steps {
-    //             echo "Building the project..."
-    //             sh 'npm run build'
-    //         }
-    //     }
+        stage('Build') {
+            steps {
+                echo "Building the project..."
+                sh 'npm run build'
+            }
+        }
         
     //     stage('Deploy to Vercel') {
     //         steps {
