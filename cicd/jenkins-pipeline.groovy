@@ -34,35 +34,34 @@ pipeline {
             }
         }
         
-    //     stage('Deploy to Vercel') {
-    //         steps {
-    //             echo "Deploying to Vercel..."
+        stage('Deploy to Vercel') {
+            steps {
+                echo "Deploying to Vercel..."
                 
-    //             // Install Vercel CLI globally
-    //             sh 'npm install -g vercel'
+                // Install Vercel CLI globally
+                sh 'npm install -g vercel'
                 
-    //             // Deploy to Vercel using the CLI
-    //             script {
-    //                 def deployCommand = """
-    //                 vercel --token ${VERCEL_TOKEN} --prod --confirm
-    //                 """
+                // Deploy to Vercel using the CLI
+                script {
+                    def deployCommand = """
+                    vercel --token ${VERCEL_TOKEN} --prod --confirm
+                    """
                     
-    //                 sh deployCommand
-    //             }
-    //         }
-    //     }
-    // }
+                    sh deployCommand
+                }
+            }
+        }
     
-    // post {
-    //     success {
-    //         echo "Pipeline executed successfully!"
-    //     }
-    //     failure {
-    //         echo "Pipeline failed. Please check the logs."
-    //     }
-    //     always {
-    //         echo "Cleaning up workspace..."
-    //         cleanWs()
-    //     }
+    post {
+        success {
+            echo "Pipeline executed successfully!"
+        }
+        failure {
+            echo "Pipeline failed. Please check the logs."
+        }
+        always {
+            echo "Cleaning up workspace..."
+            cleanWs()
+        }
     }
 }
