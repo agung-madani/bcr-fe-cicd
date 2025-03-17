@@ -43,9 +43,9 @@ pipeline {
                 
                 // Deploy to Vercel using the CLI
                 script {
-                    def deployCommand = """
-                    vercel --token ${VERCEL_TOKEN} --prod --confirm
-                    """
+                    def deployCommand = '
+                    vercel --token $VERCEL_TOKEN --prod --confirm
+                    '
                     
                     sh deployCommand
                 }
@@ -58,10 +58,6 @@ pipeline {
         }
         failure {
             echo "Pipeline failed. Please check the logs."
-        }
-        always {
-            echo "Cleaning up workspace..."
-            cleanWs()
         }
     }
 }
