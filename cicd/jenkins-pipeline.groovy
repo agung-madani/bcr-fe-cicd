@@ -43,9 +43,9 @@ pipeline {
                 
                 // Deploy to Vercel using the CLI
                 script {
-                    def deployCommand = '
+                    def deployCommand = """
                     vercel --token $VERCEL_TOKEN --prod --confirm
-                    '
+                    """
                     
                     sh deployCommand
                 }
