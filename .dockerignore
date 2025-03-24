@@ -9,8 +9,8 @@ node_modules
 .git
 
 # Ignore build folder
-dist
-build
+# dist
+# build
 
 # Ignore ESLint, Prettier, and other configuration files that aren't needed in the final image
 .eslint*
