@@ -5,7 +5,7 @@ FROM registry.redhat.io/rhel9/nginx-124:9.5-1741883852
 WORKDIR /usr/share/nginx/html
 
 # Remove default Nginx static files
-RUN rm -rf ./*
+# RUN rm -rf ./*
 
 # Copy built React files
 COPY dist/ ./
