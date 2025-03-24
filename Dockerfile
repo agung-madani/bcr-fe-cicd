@@ -11,9 +11,9 @@ WORKDIR /usr/share/nginx/html
 COPY dist/ ./
 
 # Change permissions to allow OpenShift's non-root user to write
-RUN chmod -R g+w /var/cache/nginx /var/run /var/log/nginx && \
-    chown -R 1001:0 /var/cache/nginx /var/run /var/log/nginx && \
-    chmod -R 777 /var/cache/nginx
+# RUN chmod -R g+w /var/cache/nginx /var/run /var/log/nginx && \
+#     chown -R 1001:0 /var/cache/nginx /var/run /var/log/nginx && \
+#     chmod -R 777 /var/cache/nginx
 
 # Expose port 8080 instead of 80 (OpenShift default)
 EXPOSE 8080
