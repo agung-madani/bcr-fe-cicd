@@ -1,5 +1,5 @@
 # Use official Nginx base image
-FROM nginx:alpine
+FROM registry.redhat.io/rhel9/nginx-124:9.5-1741883852
 
 # Set working directory
 WORKDIR /usr/share/nginx/html
