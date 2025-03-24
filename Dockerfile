@@ -8,7 +8,7 @@ FROM registry.redhat.io/rhel9/nginx-124:9.5-1741883852
 # RUN rm -rf ./*
 
 # Copy built React files
-ADD dist/ /opt/app-root
+COPY dist/ /opt/app-root
 
 # Change permissions to allow OpenShift's non-root user to write
 # RUN chmod -R g+w /var/cache/nginx /var/run /var/log/nginx && \
