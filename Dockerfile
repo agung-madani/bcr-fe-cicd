@@ -2,7 +2,7 @@
 FROM registry.redhat.io/rhel9/nginx-124:9.5-1741883852
 
 # Set working directory
-# WORKDIR /usr/share/nginx/html
+WORKDIR /usr/share/nginx/html
 
 # Remove default Nginx static files
 # RUN rm -rf ./*
