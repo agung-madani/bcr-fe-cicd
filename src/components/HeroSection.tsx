@@ -15,7 +15,7 @@ const HeroSection = () => {
         <div className="lg:flex">
           <div className="mb-[200px] lg:mb-0">
             <p className="font-bold text-4xl max-w-[568px] mb-5">
-              Sewa & Rental Mobil Terbaik di kawasan (Lokasimu)
+              Sewa & Rental Mobil Terbaik di kawasan Bintaro dan sekitarnya
             </p>
             <p className="text-sm font-light max-w-[463px] mb-5">
               Selamat datang di Binar Car Rental. Kami menyediakan mobil
