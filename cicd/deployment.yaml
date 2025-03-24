@@ -38,15 +38,15 @@ spec:
       targetPort: 8080
   type: ClusterIP
 ---
-apiVersion: route.openshift.io/v1
-kind: Route
-metadata:
-  name: react-vite-route
-spec:
-  to:
-    kind: Service
-    name: react-vite-service
-  port:
-    targetPort: 80
-  tls:
-    termination: edge
+# apiVersion: route.openshift.io/v1
+# kind: Route
+# metadata:
+#   name: react-vite-route
+# spec:
+#   to:
+#     kind: Service
+#     name: react-vite-service
+#   port:
+#     targetPort: 80
+#   tls:
+#     termination: edge
