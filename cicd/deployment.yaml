@@ -44,7 +44,7 @@ objects:
         spec:
           containers:
             - name: ${APP_NAME}
-              image: "${OCP_REGISTRY}/${OCP_PROJECT}/${APP_NAME}:${APP_FULL_VERSION}"
+              image: "image-registry.openshift-image-registry.svc:5000/${OCP_PROJECT}/${APP_NAME}:${APP_FULL_VERSION}"
               ports:
                 - containerPort: 8080
               envFrom:
