@@ -5,11 +5,15 @@ metadata:
 parameters:
   - name: APP_NAME
     required: true
-  - name: OCP_PROJECT
-    required: true
-  - name: OCP_REGISTRY
-    required: true
   - name: APP_FULL_VERSION
+    required: true
+  - name: GIT_COMMIT_ID
+    required: true
+  - name: JENKINS_BUILD_NUMBER
+    required: true
+  - name: CONFIG_DATA
+    required: true
+  - name: PROJECT_NAME
     required: true
 objects:
   - apiVersion: apps/v1
