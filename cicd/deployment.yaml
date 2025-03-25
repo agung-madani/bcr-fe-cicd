@@ -1,49 +1,76 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: template.openshift.io/v1
+kind: Template
 metadata:
-  name: {{ .APP_NAME }}
-  namespace: {{ .OCP_PROJECT }}
-  labels:
-    app: {{ .APP_NAME }}
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: {{ .APP_NAME }}
-  template:
+  name: app-deployment-template
+parameters:
+  - name: APP_NAME
+    required: true
+  - name: OCP_PROJECT
+    required: true
+  - name: OCP_REGISTRY
+    required: true
+  - name: APP_FULL_VERSION
+    required: true
+objects:
+  - apiVersion: apps/v1
+    kind: Deployment
     metadata:
+      name: ${APP_NAME}
+      namespace: ${OCP_PROJECT}
       labels:
-        app: {{ .APP_NAME }}
+        provider: s2i
+        appname: "${APP_NAME}"
+        appversion: "${APP_FULL_VERSION}"
+        gitcommitid: ${GIT_COMMIT_ID}
+        buildnumber: ${JENKINS_BUILD_NUMBER}
     spec:
-      containers:
-        - name: {{ .APP_NAME }}
-          image: "{{ .OCP_REGISTRY }}/{{ .OCP_PROJECT }}/{{ .APP_NAME }}:{{ .APP_FULL_VERSION }}"
-          ports:
-            - containerPort: 80
-          envFrom:
-            - configMapRef:
-                name: {{ .APP_NAME }}-config
-          resources:
-            requests:
-              memory: "128Mi"
-              cpu: "250m"
-            limits:
-              memory: "512Mi"
-              cpu: "500m"
-          imagePullPolicy: Always
-      restartPolicy: Always
+      replicas: 1
+      selector:
+        matchLabels:
+          appname: ${APP_NAME}
+      strategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxUnavailable: 25%
+          maxSurge: 25%
+      template:
+        metadata:
+          labels:
+            appname: ${APP_NAME}
+        spec:
+          containers:
+            - name: ${APP_NAME}
+              image: "${OCP_REGISTRY}/${OCP_PROJECT}/${APP_NAME}:${APP_FULL_VERSION}"
+              ports:
+                - containerPort: 8080
+              envFrom:
+                - configMapRef:
+                    name: ${APP_NAME}-config
+              resources:
+                requests:
+                  memory: "128Mi"
+                  cpu: "250m"
+                limits:
+                  memory: "512Mi"
+                  cpu: "500m"
+              imagePullPolicy: Always
+          restartPolicy: Always
 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ .APP_NAME }}-service
-spec:
-  selector:
-    app: {{ .APP_NAME }}
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080
-  type: ClusterIP
----
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: ${APP_NAME}
+      labels:
+        provider: s2i
+        appname: "${APP_NAME}"
+        appversion: "${APP_FULL_VERSION}"
+        gitcommitid: ${GIT_COMMIT_ID}
+        buildnumber: ${JENKINS_BUILD_NUMBER}
+    spec:
+      selector:
+        appname: ${APP_NAME}
+      ports:
+        - name: "${APP_NAME}-http"
+          port: 80
+          targetPort: 8080
+      type: ClusterIP

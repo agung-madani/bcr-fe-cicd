@@ -1,11 +1,29 @@
-apiVersion: v1
-kind: ConfigMap
+apiVersion: template.openshift.io/v1
+kind: Template
 metadata:
-  name: {{ .APP_NAME }}-config
-  namespace: {{ .OCP_PROJECT }}
-data:
-  APP_NAME: "{{ .APP_NAME }}"
-  APP_VERSION: "{{ .APP_FULL_VERSION }}"
-  GIT_COMMIT_ID: "{{ .GIT_COMMIT_ID }}"
-  JENKINS_BUILD_NUMBER: "{{ .JENKINS_BUILD_NUMBER }}"
-  CONFIG_DATA: "{{ .CONFIG_DATA }}"
+  name: app-config-template
+parameters:
+  - name: APP_NAME
+    required: true
+  - name: APP_FULL_VERSION
+    required: true
+  - name: GIT_COMMIT_ID
+    required: true
+  - name: JENKINS_BUILD_NUMBER
+    required: true
+  - name: CONFIG_DATA
+    required: true
+objects:
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: ${APP_NAME}-config
+      labels:
+        provider: s2i
+        appname: "${APP_NAME}"
+        appversion: "${APP_FULL_VERSION}"
+        gitcommitid: ${GIT_COMMIT_ID}
+        buildnumber: ${JENKINS_BUILD_NUMBER}
+    data:
+      application.properties: |
+        ${CONFIG_DATA}
