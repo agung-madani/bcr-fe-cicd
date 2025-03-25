@@ -20,7 +20,7 @@ objects:
     kind: Deployment
     metadata:
       name: ${APP_NAME}
-      namespace: ${OCP_PROJECT}
+      namespace: ${PROJECT_NAME}
       labels:
         provider: s2i
         appname: "${APP_NAME}"
