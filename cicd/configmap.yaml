@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .APP_NAME }}-config
+  namespace: {{ .OCP_PROJECT }}
+data:
+  APP_NAME: "{{ .APP_NAME }}"
+  APP_VERSION: "{{ .APP_FULL_VERSION }}"
+  GIT_COMMIT_ID: "{{ .GIT_COMMIT_ID }}"
+  JENKINS_BUILD_NUMBER: "{{ .JENKINS_BUILD_NUMBER }}"
+  CONFIG_DATA: "{{ .CONFIG_DATA }}"
